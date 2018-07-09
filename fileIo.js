@@ -9,6 +9,21 @@ function createNewCustomerInfo(){
 	}, null, 4));
 }
 
+function createNewAutomationInfo(){
+	fs.writeFileSync("automation.json", JSON.stringify({
+		checkFrequency : {
+			hours : 1,
+			minutes : 0,
+			seconds : 0
+		},
+		notificationEmail : "you@domain.com",
+		gmailAuth : {
+			email : "",
+			appPassword : ""
+		}
+	}, null, 4));
+}
+
 module.exports = {
 	importCustomerInfo: function(){
 		// Create a new info file if not found
@@ -33,6 +48,18 @@ module.exports = {
 		}
 
 		return customerInformation;
+	},
+	importAutomationInfo: function(){
+		// Create a new automation settings file if not found
+		if(!fs.existsSync("automation.json"))
+		{
+			console.log("No automation settings found, using defaults! " +
+				"To set automation settings update automation.json and " +
+				"restart the program");
+			createNewAutomationInfo();
+		}
+
+		return JSON.parse(fs.readFileSync("automation.json"));
 	},
 	importCurrentInfo: function(){
 		// Read current status file if it exists, otherwise return a blank obj
