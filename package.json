@@ -26,6 +26,7 @@
   "homepage": "https://github.com/nickusve/fordTracker#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
+    "nodemailer": "^4.6.7",
     "request": "^2.87.0"
   }
 }
