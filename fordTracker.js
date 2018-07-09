@@ -1,22 +1,29 @@
 const cheerio = require('cheerio')
 const request = require('request')
 const fileIo = require('./fileIo.js')
+const emailApi = require('./emailApi.js')
 
+// Load the customer info and automation settings
 var requestData = fileIo.importCustomerInfo();
+var automationData = fileIo.importAutomationInfo();
 
-request.post(
-	'http://www.cotus.ford.com/',
-	{ form: requestData},
-	function (error, response, body) {
-		if (!error && response.statusCode == 200) {
+// Set up the email API
+emailApi.configureApi(automationData);
 
-			const $ = cheerio.load(body)
+setInterval(function(){
+	request.post(
+		'http://www.cotus.ford.com/',
+		{form: requestData},
+		function (error, response, body) {
+			if (!error && response.statusCode == 200) {
 
-			if ($("#ng-widget-1").hasClass("landing"))
-			{
-				console.log("Filed to load vehicle status - vehicle information may be incorrect.");
-				return;
-			}
+				const $ = cheerio.load(body)
+
+				if ($("#ng-widget-1").hasClass("landing"))
+				{
+					console.log("Filed to load vehicle status - vehicle information may be incorrect.");
+					return;
+				}
 
 			// Emptry data container for vehicle/status info
 			var data = {};
@@ -41,7 +48,11 @@ request.post(
 				console.log("New information!");
 				console.log(data);
 				fileIo.exportCurrentInfo(data);
+				emailApi.sendUpdate(data);
 			}
 		}
 	}
-	);
+	)
+}	, ((automationData.checkFrequency.hours * 3600000) +
+	(automationData.checkFrequency.minutes * 60000) +
+	(automationData.checkFrequency.seconds * 1000)));
