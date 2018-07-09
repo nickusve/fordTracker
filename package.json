@@ -1,0 +1,32 @@
+{
+  "name": "fordtracker",
+  "version": "1.0.0",
+  "description": "Standalone Node script used to track the progress of a Ford vehicle as it is built",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickusve/fordTracker.git"
+  },
+  "keywords": [
+    "Ford",
+    "tracker",
+    "cotus",
+    "track",
+    "vehicle",
+    "build"
+  ],
+  "author": "nickusve",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nickusve/fordTracker/issues"
+  },
+  "homepage": "https://github.com/nickusve/fordTracker#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "nodemailer": "^4.6.7",
+    "request": "^2.87.0"
+  }
+}
