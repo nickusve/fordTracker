@@ -1,0 +1,12 @@
+{
+	"checkFrequency" : {
+		"days" : 0,
+		"hours" : 1,
+		"minutes" : 0
+	},
+	"notificationEmail" : "you@domain.com",
+	"gmailAuth" : {
+		"email" : "",
+		"appPassword" : ""
+	}
+}
